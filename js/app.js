@@ -28,12 +28,25 @@ function setActiveSection() {
     });
 }
 
-// Function for smooth scrolling when clicking the menu link
 function scrollToSection(event) {
     event.preventDefault();
     const targetId = event.target.getAttribute('href').slice(1);
     const targetSection = document.getElementById(targetId);
-    targetSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // Scroll to the section, compensating for the fixed header height
+    const headerOffset = document.querySelector('header').offsetHeight;
+    const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    
+    window.scrollTo({
+        top: sectionPosition,
+        behavior: 'smooth'
+    });
+    
+    // Highlight the clicked section immediately
+    setTimeout(() => {
+        sections.forEach(section => section.classList.remove('active'));
+        event.target.classList.add('active');
+    }, 300); // Add a slight delay to highlight after scrolling
 }
 
 // Add navigation items
@@ -44,3 +57,6 @@ window.addEventListener('scroll', setActiveSection);
 
 // Add click event for smooth scrolling
 navbarList.addEventListener('click', scrollToSection);
+
+
+

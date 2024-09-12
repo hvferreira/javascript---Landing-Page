@@ -67,3 +67,8 @@ section h2 {
         padding: 40px 10px;
     }
 }
+
+.spacer {
+    height: 100vh;
+    /* Adiciona espaço equivalente a 100% da altura da janela */
+}
